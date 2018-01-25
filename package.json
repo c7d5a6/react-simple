@@ -1,0 +1,10 @@
+{
+  "name": "react-simple",
+  "version": "0.1.0",
+  "description": "simple react",
+  "main": "index.js",
+  "repository": "git@github.com:c7d5a6/react-simple.git",
+  "author": "Mikita Kukavenka <godinfrog@gmail.com>",
+  "license": "MIT",
+  "private": true
+}
