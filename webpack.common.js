@@ -1,5 +1,4 @@
 const path = require('path');
-const webpack = require('webpack');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
@@ -7,22 +6,16 @@ const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 
 module.exports = {
   entry: {
-    toolkit: './app/js/toolkit.min.js',
-    app: './app/app.module.js'
-  },
-  output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: '[name].[hash].js',
+    app: './src/index.js',
   },
   module: {
-    rules: [
-      {
-      test: /\.js$/,
-      exclude: /(node_modules)/,
-      use: [
-        'babel-loader'
-      ]
-    },
+    rules: [{
+        test: /\.js$/,
+        exclude: /(node_modules)/,
+        use: [
+          'babel-loader'
+        ]
+      },
       {
         test: /\.html$/,
         use: [
@@ -53,31 +46,13 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin(['dist']),
     new HtmlWebpackPlugin({
-      template: './app/index.html',
-      filename: 'index.html'
-    }),
-    new ExtractTextPlugin('[name].[contenthash].css'),
-    new webpack.HashedModuleIdsPlugin(),
-    new webpack.optimize.CommonsChunkPlugin({
-        name: 'toolkit'
-    }),
-    new webpack.optimize.CommonsChunkPlugin({
-        name: 'common'
-    }),
-        new FaviconsWebpackPlugin({
-            logo: './app/images/favicon.png',
-            icons: {
-                android: true,
-                appleIcon: true,
-                appleStartup: false,
-                coast: false,
-                favicons: true,
-                firefox: true,
-                opengraph: false,
-                twitter: false,
-                yandex: false,
-                windows: false
-            }
-        })
-  ]
+      template: './src/index.html',
+      filename: 'index.html',
+      inject: 'body'
+    })
+  ],
+  output: {
+    filename: '[name].bundle.js',
+    path: path.resolve(__dirname, 'dist')
+  }
 };
